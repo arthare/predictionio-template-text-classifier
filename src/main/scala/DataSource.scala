@@ -44,7 +44,7 @@ class DataSource (
     )(sc).map(e => {
       val label : String = e.properties.get[String]("label")
       Observation(
-        label.toInt,
+        label.toInt(),
         e.properties.get[String]("text"),
         label
       )

@@ -17,7 +17,7 @@ On your server:
 13) Submit classification requests by POSTing to your server's 8000 port at http://your-server.com:8000/queries.json with a body like {"text": "your test text"}
 
 
-When you want to re-train:
+When you want to re-train, or if you've made changes:
 On your server:
 1) `pio-docker train`
 2) `pio-docker deploy`
