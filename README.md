@@ -1,50 +1,23 @@
-# Text Classification Engine
+How to do:
 
-Look at the following
-[tutorial](https://predictionio.apache.org/demo/textclassification/)
-for a Quick Start guide and implementation details.
-
-# Release Information
-
-## Version 6.0
-
-- Use Apache Lucene as tokenizer
-- Add stopwords filter
-- Rename Scala package name
-- Update SBT version
-
-## Version 5.0 **First Apache Version**
-
-- Major changes to namespace to reflect donation to the Apache Software Foundation.
-- Build changes to support modified Apache build mechanism
-
-## Version 4.0
-
-Re-structure and design preparator and algo. less memory usage and run time is faster.
-Move BIDMach, VW & SPPMI algo changes to `bidmach` branch temporarily.
-
-## Version 3.1
-
-Fix DataSource to read "content", "e-mail", and use label "spam" for tutorial data.
-Fix engine.json for default algorithm setting.
+On your server:
+0) `git clone github/arthare/predictionio`
+1) github/arthare/predictionio/docker: `docker pull predictionpio/pio`
+2) `github/arthare/predictionio/docker/compose.sh &` <-- this will start your event server, but leave your CLI usable
+3) export PATH=`pwd`/bin:$PATH
+4) pio-docker app new MyTestApp
+5) `github/arthare/predictionio`
+6) `cd github/arthare/predictionio/docker/templates`
+7) `git clone github/arthare/predictionio-template-text-classifier`
+8) Modify `github/arthare/predictionio-template-text-classifier/engine.json` to point at your app's name (MyTestApp)
+9) `pio-docker build`
+10) Submit some events by POSTing to your server's 7070 port
+11) in `github/arthare/predictionio-template-text-classifier/`, `pio-docker train`
+12) in `github/arthare/predictionio-template-text-classifier/`, `pio-docker deploy &`
+13) Submit classification requests by POSTing to your server's 8000 port at http://your-server.com:8000/queries.json with a body like {"text": "your test text"}
 
 
-## Version 2.2
-
-Modified PreparedData to use MLLib hashing and tf-idf implementations.
-
-## Version 2.1
-
-Fixed dot product implementation in the predict methods to work with batch predict method for evaluation.
-
-## Version 2.0
-
-Included three different data sets: e-mail spam, 20 newsgroups, and the rotten tomatoes semantic analysis set. Includes Multinomial Logistic Regression algorithm for text classification.
-
-## Version 1.2
-
-Fixed import script bug occuring with Python 2.
-
-## Version 1.1 Changes
-
-Changed data import Python script to pull straight from the [20 newsgroups](http://qwone.com/~jason/20Newsgroups/) page.
+When you want to re-train:
+On your server:
+1) `pio-docker train`
+2) `pio-docker deploy`
